@@ -1,10 +1,11 @@
 .input {
-  height: 64px;
+  height: 50px;
   background: #ffffff;
   border-radius: 6px;
   width: 100%;
   border: 1px solid #8692a6;
-  padding: 30px 23px;
+  padding: 0.75rem;
+  /* padding: 30px 23px; */
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -37,6 +38,16 @@
   margin-top: 24px;
   margin-bottom: 14px;
 }
+.label__check {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  color: #696f79;
+}
 .error {
   font-family: "Inter";
   font-style: normal;
@@ -53,7 +64,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 426px;
   height: 100%;
   margin: auto;
   justify-content: center;
@@ -71,4 +82,150 @@
   height: 64px !important;
   color: #fff !important;
   border-radius: 6px !important;
+}
+.submit__google {
+  position: relative !important;
+  width: 100% !important;
+  background: #fff !important;
+  text-transform: none !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  /* margin-top: 24px !important; */
+  height: 64px !important;
+  color: #000 !important;
+  border-radius: 6px !important;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  display: flex !important;
+  text-align: center !important;
+}
+.google {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 43px;
+}
+.or__div {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.or {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #bababa;
+}
+
+.customer__input {
+  font-family: "Inter";
+  font-size: 16px;
+  color: #637381;
+  vertical-align: top;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 1.4666667px;
+  height: 38px;
+}
+.customer__input::placeholder {
+  font-family: "Inter";
+  font-size: 16px;
+  color: #d8d8d8 !important;
+  vertical-align: top;
+  font-weight: 400;
+  line-height: 24px;
+}
+.lock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 29px;
+}
+.info {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #8692a6;
+}
+
+.lockIcon {
+  width: 14px !important;
+  height: 14px !important;
+  color: #8692a6 !important;
+  margin-right: 10px !important;
+}
+.nav {
+  width: 100%;
+}
+.nav1 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.nav3__back {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #8692a6;
+}
+.nav3__span{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-align: right;
+
+color: #BDBDBD;
+}
+.person__info{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+display: flex;
+align-items: center;
+text-align: right;
+
+color: #8692A6;
+}
+.nav4{
+  display: flex;
+  justify-content: flex-end;
+
 }

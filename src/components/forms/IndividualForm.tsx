@@ -7,11 +7,16 @@ import {
   Link,
   Input,
   FormControl,
+  Icon,
 } from "@mui/material";
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { Grid } from "@mui/material";
 import styles from "../../styles/Form.module.css";
+import styles2 from "../../styles/Register.module.css";
+import IconButton from "@mui/material/IconButton";
+import CardMedia from "@mui/material/CardMedia";
+
 export default function IndividualForm() {
   const methods = useForm();
   const {
@@ -19,14 +24,42 @@ export default function IndividualForm() {
     handleSubmit,
     formState: { errors },
   } = methods;
+  const intro = (
+    <Box className={styles2.choose__reg}>
+      <p className={styles2.join__us}>Register Individual Account!</p>
+      <p className={styles2.join__us__2}>
+        For the purpose of industry regulation, your details are required.
+      </p>
+    </Box>
+  );
   return (
     <FormProvider {...methods}>
       <form
         className={styles.form}
         onSubmit={handleSubmit((data: any) => console.log(data))}
       >
+        {intro}
+
         <label className={styles.label} htmlFor="email">
-          Email
+          Your full name*
+        </label>
+        <input
+          id="name"
+          className={styles.input}
+          aria-invalid={errors.name ? "true" : "false"}
+          {...register("name", {
+            required: "Name required",
+          })}
+          type="text"
+          placeholder="Enter your name"
+        />
+        {errors.name?.message && (
+          <span className={styles.error} role="alert">
+            {errors.name.message?.toString()}
+          </span>
+        )}
+        <label className={styles.label} htmlFor="email">
+          Email address*
         </label>
         <input
           id="email"
@@ -48,7 +81,7 @@ export default function IndividualForm() {
           </span>
         )}
         <label className={styles.label} htmlFor="password">
-          Password
+          Create password*
         </label>
         <input
           className={styles.input}
@@ -69,8 +102,41 @@ export default function IndividualForm() {
             {errors.password.message.toString()}
           </span>
         )}
+        <FormControlLabel
+          sx={{
+            marginTop: "24px",
+          }}
+          control={
+            <Checkbox
+              aria-invalid={errors.passward ? "true" : "false"}
+              {...register("terms", {
+                required: "Terms accept required",
+              })}
+            />
+          }
+          label="I agree to terms & conditions"
+          classes={{
+            label: styles.label___check,
+          }}
+        />
+        {errors.terms?.message && (
+          <span className={styles.error} role="alert">
+            {errors.terms.message.toString()}
+          </span>
+        )}
         <Button type="submit" className={styles.submit} fullWidth>
           Register Account
+        </Button>
+        <div className={styles.or__div}>
+          <span className={styles.or}>Or</span>
+        </div>
+        <Button className={styles.submit__google} fullWidth>
+          <img
+            className={styles.google}
+            alt="google-logo"
+            src={`${process.env.PUBLIC_URL}/google.svg`}
+          />
+          Register with Google
         </Button>
       </form>
     </FormProvider>

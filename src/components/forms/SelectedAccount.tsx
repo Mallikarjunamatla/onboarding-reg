@@ -4,7 +4,18 @@ import Typography from "@mui/material/Typography";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import styles from "../../styles/Register.module.css";
+import React from "react";
+import { useAppDispatch } from "../../app/hooks";
+import { formType } from "../../features/register/registerSlice";
 function SelectedAccount() {
+  const dispatch = useAppDispatch()
+  const onClickIndividual=(e : React.MouseEvent)=>{
+    e.preventDefault();
+    dispatch(formType({
+      selectType: "individualForm"
+    }))
+
+  }
   const individual = (
     <Box className={styles.indi}>
       <Box className={styles.polygon}>
@@ -96,7 +107,7 @@ function SelectedAccount() {
             opening.
           </p>
         </div>
-        <Button size="large" className={styles.indi__button} fullWidth>
+        <Button onClick={onClickIndividual} size="large" className={styles.indi__button} fullWidth>
           {individual}
         </Button>
         <Button size="large" className={styles.business} fullWidth>

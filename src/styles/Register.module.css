@@ -2,6 +2,11 @@
 }
 .choose {
   margin-top: 135px;
+  width: 426px;
+}
+.choose__reg {
+  margin-top: 78px;
+  width: 426px;
 }
 .join__us {
   font-family: "Inter";
@@ -11,8 +16,10 @@
   line-height: 36px;
   display: flex;
   align-items: center;
-
+  margin: 0px;
   color: #000000;
+  margin-bottom: 10px;
+  text-align: left;
 }
 .join__us__2 {
   font-family: "Inter";
@@ -20,8 +27,10 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
+  margin: 0px;
+  text-align: left;
   /* or 156% */
-
+  margin-bottom: 35px;
   display: flex;
   align-items: center;
 
@@ -117,6 +126,7 @@
   align-items: center !important;
   text-transform: none !important;
   color: #8692a6 !important;
+  text-align: left !important;
 }
 .arrow {
   display: flex;
