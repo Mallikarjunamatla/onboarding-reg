@@ -8,14 +8,25 @@ import React from "react";
 import { useAppDispatch } from "../../app/hooks";
 import { formType } from "../../features/register/registerSlice";
 function SelectedAccount() {
-  const dispatch = useAppDispatch()
-  const onClickIndividual=(e : React.MouseEvent)=>{
+  const dispatch = useAppDispatch();
+  const onClickIndividual = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(formType({
-      selectType: "individualForm"
-    }))
-
-  }
+    dispatch(
+      formType({
+        selectType: "individualForm",
+        accountSelected: "individual",
+      })
+    );
+  };
+  const onClickBusiness = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(
+      formType({
+        selectType: "BVN",
+        accountSelected: "business",
+      })
+    );
+  };
   const individual = (
     <Box className={styles.indi}>
       <Box className={styles.polygon}>
@@ -89,17 +100,17 @@ function SelectedAccount() {
   return (
     <Box>
       <Box>
-          <p className={styles.sign__in}>
-            Already have an account?&nbsp;{" "}
-            <a href="#root" className={styles.link}>
-              {" "}
-              Sign In
-            </a>
-          </p>
+        <p className={styles.sign__in}>
+          Already have an account?&nbsp;{" "}
+          <a href="#root" className={styles.link}>
+            {" "}
+            Sign In
+          </a>
+        </p>
       </Box>
       <Box className={styles.choose}>
         <div>
-          <span className={styles.join__us}>Join Us</span>
+          <span className={styles.join__us}>Join Us!</span>
         </div>
         <div>
           <p className={styles.join__us__2}>
@@ -107,10 +118,20 @@ function SelectedAccount() {
             opening.
           </p>
         </div>
-        <Button onClick={onClickIndividual} size="large" className={styles.indi__button} fullWidth>
+        <Button
+          onClick={onClickIndividual}
+          size="large"
+          className={styles.indi__button}
+          fullWidth
+        >
           {individual}
         </Button>
-        <Button size="large" className={styles.business} fullWidth>
+        <Button
+          onClick={onClickBusiness}
+          size="large"
+          className={styles.business}
+          fullWidth
+        >
           {business}
         </Button>
       </Box>

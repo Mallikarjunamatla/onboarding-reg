@@ -1,36 +1,46 @@
 import {
   Box,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
-  Link,
-  Input,
-  FormControl,
-  Icon,
+  Dialog,
+  DialogContent,
+  List,
+  ListItem,
 } from "@mui/material";
-import React from "react";
-import {
-  useForm,
-  FormProvider,
-  useFormContext,
-  Controller,
-} from "react-hook-form";
-import { Grid } from "@mui/material";
+import React, { useState } from "react";
 import styles from "../../styles/Form.module.css";
 import styles2 from "../../styles/Register.module.css";
-import IconButton from "@mui/material/IconButton";
-import CardMedia from "@mui/material/CardMedia";
-import PhoneInputWithCountrySelect from "react-phone-number-input";
-import LockIcon from "@mui/icons-material/Lock";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  formType,
+  selectRegister,
+} from "../../features/register/registerSlice";
 export default function ViewInfo() {
-  const methods = useForm();
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = methods;
+  const dispatch = useAppDispatch();
+  const registerState = useAppSelector(selectRegister);
+  const [open, setOpen] = useState(false);
+
+  React.useEffect(() => {
+    if (
+      registerState.accountSelected === "business" &&
+      registerState.selectType === "viewInfo"
+    ) {
+      dispatch(
+        formType({
+          preType: "BVN",
+        })
+      );
+    }
+    if (
+      registerState.accountSelected === "individual" &&
+      registerState.selectType === "viewInfo"
+    ) {
+      dispatch(
+        formType({
+          preType: "residency",
+        })
+      );
+    }
+  }, [dispatch, registerState.accountSelected, registerState.selectType]);
   const intro = (
     <Box sx={{ marginBottom: "20px" }}>
       <Box className={styles2.choose__reg}>
@@ -45,16 +55,54 @@ export default function ViewInfo() {
       </Box>
     </Box>
   );
+  const onClickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+  const onClose = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
   return (
-    <Box
-      className={styles.form}
-      onSubmit={handleSubmit((data: any) => console.log(data))}
-    >
+    <Box className={styles.form}>
       {intro}
-
-      <Button className={styles.submit} fullWidth>
+      <Button onClick={onClickView} className={styles.submit} fullWidth>
         View Your Information
       </Button>
+      <Dialog open={open} onClose={onClose}>
+        <DialogContent>
+          {registerState.accountSelected === "individual" && (
+            <Box>
+              {Object.keys(registerState.individual).length > 0 && (
+                <List>
+                  {Object.keys(registerState.individual).map((item: any) => (
+                    <ListItem key={item}>
+                      <span className={styles.country}>{`${item} : `}</span>{" "}
+                      &nbsp; {` ${(registerState.individual as any)[item]}`}
+                    </ListItem>
+                  ))}
+                </List>
+              )}
+            </Box>
+          )}
+          {registerState.accountSelected === "business" && (
+            <Box>
+              {Object.keys(registerState.business).length > 0 && (
+                <List>
+                  {Object.keys(registerState.business).map((item: any) => (
+                    <ListItem key={item}>
+                      <span
+                        className={styles.country}
+                      >{`Bank verification number (BVN) : `}</span>{" "}
+                      &nbsp; {` ${(registerState.business as any)[item]}`}
+                    </ListItem>
+                  ))}
+                </List>
+              )}
+            </Box>
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

@@ -1,36 +1,38 @@
 import {
   Box,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
-  Link,
-  Input,
-  FormControl,
-  Icon,
 } from "@mui/material";
 import React from "react";
 import {
   useForm,
-  FormProvider,
-  useFormContext,
-  Controller,
 } from "react-hook-form";
-import { Grid } from "@mui/material";
 import styles from "../../styles/Form.module.css";
 import styles2 from "../../styles/Register.module.css";
-import IconButton from "@mui/material/IconButton";
-import CardMedia from "@mui/material/CardMedia";
-import PhoneInputWithCountrySelect from "react-phone-number-input";
 import LockIcon from "@mui/icons-material/Lock";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  formType,
+  selectRegister,
+} from "../../features/register/registerSlice";
 export default function BankVerificationNumberForm() {
+  const registerState = useAppSelector(selectRegister);
   const methods = useForm();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
-    control,
+    reset,
     formState: { errors },
   } = methods;
+  React.useEffect(() => {
+    if (registerState.selectType === "BVN") {
+      dispatch(
+        formType({
+          preType: "accountType",
+        })
+      );
+    }
+  }, [dispatch, registerState.selectType]);
   const intro = (
     <Box sx={{ marginBottom: "20px" }}>
       <Box className={styles2.choose__reg}>
@@ -41,11 +43,17 @@ export default function BankVerificationNumberForm() {
       </Box>
     </Box>
   );
+  const onSubmit = (data: any) => {
+    dispatch(
+      formType({
+        selectType: "viewInfo",
+        business: data
+      })
+    );
+    reset()
+  };
   return (
-    <form
-      className={styles.form}
-      onSubmit={handleSubmit((data: any) => console.log(data))}
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       {intro}
 
       <label className={styles.label} htmlFor="email">
@@ -72,9 +80,7 @@ export default function BankVerificationNumberForm() {
         Save & continue
       </Button>
       <Box className={styles.lock}>
-        <LockIcon
-          className={styles.lockIcon}
-        />{" "}
+        <LockIcon className={styles.lockIcon} />{" "}
         <span className={styles.info}>Your Info is safely secured</span>
       </Box>
     </form>

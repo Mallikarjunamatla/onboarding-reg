@@ -1,36 +1,42 @@
 import {
   Box,
-  TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
-  Link,
-  Input,
-  FormControl,
-  Icon,
 } from "@mui/material";
 import React from "react";
 import {
   useForm,
-  FormProvider,
-  useFormContext,
   Controller,
 } from "react-hook-form";
-import { Grid } from "@mui/material";
 import styles from "../../styles/Form.module.css";
 import styles2 from "../../styles/Register.module.css";
-import IconButton from "@mui/material/IconButton";
-import CardMedia from "@mui/material/CardMedia";
 import PhoneInputWithCountrySelect from "react-phone-number-input";
+import {
+  formType,
+  selectRegister,
+} from "../../features/register/registerSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { CountryDropdown } from "react-country-region-selector";
 
 export default function ResidencyForm() {
+  const registerState = useAppSelector(selectRegister);
   const methods = useForm();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = methods;
+  React.useEffect(() => {
+    if (registerState.selectType === "residency") {
+      dispatch(
+        formType({
+          preType: "individualForm",
+        })
+      );
+    }
+  }, [dispatch, registerState.selectType]);
   const intro = (
     <Box className={styles2.choose__reg}>
       <p className={styles2.join__us}>Complete Your Profile!</p>
@@ -39,11 +45,18 @@ export default function ResidencyForm() {
       </p>
     </Box>
   );
+
+  const onSubmit = (data: any) => {
+    dispatch(
+      formType({
+        selectType: "viewInfo",
+        individual: data
+      })
+    );
+    reset()
+  };
   return (
-    <form
-      className={styles.form}
-      onSubmit={handleSubmit((data: any) => console.log(data))}
-    >
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       {intro}
 
       <label className={styles.label} htmlFor="email">
@@ -75,8 +88,8 @@ export default function ResidencyForm() {
             placeholder="Please enter phone number"
             country="IN"
             onChange={onChange}
-            
-            //   value={value}
+            value={value}
+
           />
         )}
       />
@@ -106,17 +119,21 @@ export default function ResidencyForm() {
       <label className={styles.label} htmlFor="password">
         Country of residence
       </label>
-      <select
-        className={styles.input}
-        id="country"
-        aria-invalid={errors.passward ? "true" : "false"}
-        {...register("country", {
-          required: "Country required",
-        })}
-      >
-        <option value="">Please select </option>
-        <option value="hello">Hello</option>
-      </select>
+      <Controller
+        control={control}
+        defaultValue={""}
+        name={"country"}
+        rules={{
+          required: "Please select a country",
+        }}
+        render={({ field: { onChange, value } }) => (
+          <CountryDropdown
+          classes={styles.input}
+            onChange={onChange}
+            value={value}
+          />
+        )}
+      />
       {errors.country?.message && (
         <span className={styles.error} role="alert">
           {errors.country.message.toString()}

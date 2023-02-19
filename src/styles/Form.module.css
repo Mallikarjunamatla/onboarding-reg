@@ -180,6 +180,7 @@
 .nav1 {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
 }
 .nav2{
@@ -228,4 +229,7 @@ color: #8692A6;
   display: flex;
   justify-content: flex-end;
 
+}
+.country{
+  text-transform: capitalize;
 }

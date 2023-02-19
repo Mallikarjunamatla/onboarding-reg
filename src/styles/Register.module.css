@@ -137,6 +137,9 @@
   margin: auto;
 }
 .sign__in {
+  top: 71px;
+  right: 81px;
+  position: absolute;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;

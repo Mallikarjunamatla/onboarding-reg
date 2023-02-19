@@ -1,29 +1,33 @@
 import {
   Box,
-  TextField,
   FormControlLabel,
   Checkbox,
   Button,
-  Link,
-  Input,
-  FormControl,
-  Icon,
 } from "@mui/material";
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import { Grid } from "@mui/material";
 import styles from "../../styles/Form.module.css";
 import styles2 from "../../styles/Register.module.css";
-import IconButton from "@mui/material/IconButton";
-import CardMedia from "@mui/material/CardMedia";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { formType, selectRegister } from "../../features/register/registerSlice";
 
 export default function IndividualForm() {
   const methods = useForm();
+  const dispatch = useAppDispatch();
+  const registerState = useAppSelector(selectRegister)
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = methods;
+  React.useEffect(()=>{
+   if(registerState.selectType === "individualForm"){
+    dispatch(formType({
+      preType: "accountType"
+    }))
+   }
+ },[dispatch, registerState.selectType])
   const intro = (
     <Box className={styles2.choose__reg}>
       <p className={styles2.join__us}>Register Individual Account!</p>
@@ -32,11 +36,18 @@ export default function IndividualForm() {
       </p>
     </Box>
   );
+  const onSubmit = (data: any)=>{
+    dispatch(formType({
+      selectType: "residency",
+      individual: data
+    }))
+    reset()
+  }
   return (
     <FormProvider {...methods}>
       <form
         className={styles.form}
-        onSubmit={handleSubmit((data: any) => console.log(data))}
+        onSubmit={handleSubmit(onSubmit)}
       >
         {intro}
 

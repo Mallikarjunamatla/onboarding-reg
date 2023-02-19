@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import { fetchCount } from "./registerAPI";
 
 export interface RegisterState {
@@ -11,14 +11,18 @@ export interface RegisterState {
     | "residency"
     | "individualForm"
     | "BVN";
+  preType: "accountType" | "viewInfo" | "residency" | "individualForm" | "BVN";
   viewInfo: {};
+  accountSelected: "business" | "individual"
 }
 
 const initialState: RegisterState = {
   individual: {},
   business: {},
   selectType: "accountType",
+  preType: "accountType",
   viewInfo: {},
+  accountSelected: "individual",
 };
 
 export const incrementAsync = createAsyncThunk(
@@ -41,6 +45,8 @@ export const registerSlice = createSlice({
     },
     formType: (state, action) => {
       state.selectType = action.payload.selectType ?? state.selectType;
+      state.preType = action.payload.preType ?? state.preType;
+      state.accountSelected = action.payload.accountSelected ?? state.accountSelected;
       state.business = {
         ...state.business,
         ...(action.payload.business ?? state.business),
@@ -60,7 +66,7 @@ export const registerSlice = createSlice({
   },
 });
 
-export const { individualInfo, businessInfo,formType } = registerSlice.actions;
+export const { individualInfo, businessInfo, formType } = registerSlice.actions;
 
 export const selectRegister = (state: RootState) => state.register;
 
