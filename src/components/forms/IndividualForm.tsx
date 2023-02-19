@@ -38,6 +38,7 @@ export default function IndividualForm() {
   );
   const onSubmit = (data: any)=>{
     dispatch(formType({
+      backAnim: false,
       selectType: "residency",
       individual: data
     }))

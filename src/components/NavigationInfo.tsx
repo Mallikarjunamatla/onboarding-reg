@@ -13,6 +13,7 @@ function NavigationInfo() {
     dispatch(
       formType({
         selectType: forms.preType,
+        backAnim: true,
       })
     );
   };

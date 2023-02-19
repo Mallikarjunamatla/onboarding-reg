@@ -46,6 +46,7 @@ export default function BankVerificationNumberForm() {
   const onSubmit = (data: any) => {
     dispatch(
       formType({
+        backAnim: false,
         selectType: "viewInfo",
         business: data
       })

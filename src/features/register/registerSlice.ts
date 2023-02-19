@@ -13,7 +13,8 @@ export interface RegisterState {
     | "BVN";
   preType: "accountType" | "viewInfo" | "residency" | "individualForm" | "BVN";
   viewInfo: {};
-  accountSelected: "business" | "individual"
+  accountSelected: "business" | "individual",
+  backAnim: boolean,
 }
 
 const initialState: RegisterState = {
@@ -23,6 +24,7 @@ const initialState: RegisterState = {
   preType: "accountType",
   viewInfo: {},
   accountSelected: "individual",
+  backAnim: false,
 };
 
 export const incrementAsync = createAsyncThunk(
@@ -44,6 +46,7 @@ export const registerSlice = createSlice({
       state.business = { ...state.business, ...action.payload };
     },
     formType: (state, action) => {
+      state.backAnim = action.payload.backAnim ?? state.backAnim;
       state.selectType = action.payload.selectType ?? state.selectType;
       state.preType = action.payload.preType ?? state.preType;
       state.accountSelected = action.payload.accountSelected ?? state.accountSelected;

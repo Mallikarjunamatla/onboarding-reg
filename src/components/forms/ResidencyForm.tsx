@@ -49,6 +49,7 @@ export default function ResidencyForm() {
   const onSubmit = (data: any) => {
     dispatch(
       formType({
+        backAnim: false,
         selectType: "viewInfo",
         individual: data
       })

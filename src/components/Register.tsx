@@ -95,7 +95,7 @@ export default function Register() {
                     }}
                   >
                     <Slide
-                      direction="right"
+                      direction={registerState.backAnim ? "right" : "left"}
                       in={
                         registerState && registerState.selectType === ele.type
                       }

@@ -22,6 +22,7 @@ function SelectedAccount() {
     e.preventDefault();
     dispatch(
       formType({
+        backAnim: false,
         selectType: "BVN",
         accountSelected: "business",
       })
